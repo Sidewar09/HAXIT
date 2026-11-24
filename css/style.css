@@ -1,0 +1,462 @@
+/* =========================================================
+   HAXIT - estilo inspirado en FACEIT (v2)
+   Fondo carbón, acento naranja, tipografía deportiva,
+   barras laterales fijas, tablas tipo ranking, pantalla
+   de partida con duelo central.
+   Mantiene todas las clases del HTML original.
+   ========================================================= */
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Play:wght@400;700&display=swap');
+
+:root {
+    /* Superficies (de más oscura a más clara) */
+    --fondo: #0f0f10;
+    --panel: #1a1a1c;
+    --panel-2: #232326;
+    --panel-3: #2c2c30;
+    --borde: #2f2f34;
+    --borde-fuerte: #44444b;
+
+    /* Texto */
+    --texto: #f4f4f5;
+    --texto-suave: #9b9ba3;
+
+    /* Acento y estados */
+    --naranja: #ff5500;
+    --naranja-claro: #ff7a33;
+    --naranja-oscuro: #d94700;
+    --naranja-suave: rgba(255, 85, 0, 0.12);
+    --verde: #3ecf6e;
+    --rojo: #ff4d4d;
+    --oro: #ffd34d;
+    --plata: #c9ced6;
+    --bronce: #d08a4e;
+
+    --display: "Play", "Barlow", "Segoe UI", Arial, sans-serif;
+    --cuerpo: "Barlow", "Segoe UI", Arial, sans-serif;
+
+    --radio: 4px;
+    --radio-grande: 8px;
+    --sombra: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+* { box-sizing: border-box; }
+
+html { scrollbar-color: var(--panel-3) var(--fondo); scrollbar-width: thin; }
+
+body {
+    margin: 0;
+    font-family: var(--cuerpo);
+    font-size: 16px;
+    line-height: 1.5;
+    background: var(--fondo);
+    color: var(--texto);
+    -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--naranja); color: #fff; }
+
+/* ---------- Tipografía ---------- */
+h1, h2, h3 {
+    font-family: var(--display);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    line-height: 1.1;
+    margin-top: 0;
+}
+h1 {
+    position: relative;
+    font-size: 38px;
+    margin-bottom: 28px;
+    padding-left: 16px;
+}
+/* Barra naranja vertical al lado del título principal */
+h1::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 2px;
+    bottom: 2px;
+    width: 5px;
+    background: var(--naranja);
+    border-radius: 2px;
+}
+h2 { font-size: 22px; margin: 36px 0 14px; color: var(--texto); }
+h3 { font-size: 16px; margin: 24px 0 8px; color: var(--texto-suave); }
+
+p { margin: 0 0 12px; }
+
+a { color: var(--naranja); text-decoration: none; transition: color 0.15s; }
+a:hover { color: var(--naranja-claro); text-decoration: underline; }
+
+/* ---------- Formularios ---------- */
+label {
+    display: block;
+    margin: 18px 0 6px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--texto-suave);
+}
+
+input, select {
+    width: 100%;
+    padding: 12px 14px;
+    font-family: inherit;
+    font-size: 16px;
+    color: var(--texto);
+    background: var(--fondo);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+}
+input::placeholder { color: #5f5f67; }
+input:hover, select:hover { border-color: var(--borde-fuerte); }
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--naranja);
+    box-shadow: 0 0 0 3px rgba(255, 85, 0, 0.25);
+}
+button:focus-visible, a:focus-visible {
+    outline: 2px solid var(--naranja);
+    outline-offset: 2px;
+}
+
+select {
+    appearance: none;
+    padding-right: 38px;
+    background-color: var(--fondo);
+    background-image:
+        linear-gradient(45deg, transparent 50%, var(--texto-suave) 50%),
+        linear-gradient(135deg, var(--texto-suave) 50%, transparent 50%);
+    background-position: calc(100% - 19px) 55%, calc(100% - 13px) 55%;
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+button {
+    margin-top: 22px;
+    padding: 13px 28px;
+    font-family: var(--display);
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #fff;
+    background: linear-gradient(180deg, var(--naranja-claro), var(--naranja) 60%, var(--naranja-oscuro));
+    border: none;
+    border-radius: var(--radio);
+    box-shadow: 0 4px 16px rgba(255, 85, 0, 0.25);
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.15s, filter 0.15s;
+}
+button:hover {
+    filter: brightness(1.08);
+    box-shadow: 0 6px 22px rgba(255, 85, 0, 0.4);
+}
+button:active { transform: translateY(1px); box-shadow: 0 2px 8px rgba(255, 85, 0, 0.3); }
+button:disabled {
+    cursor: not-allowed;
+    filter: grayscale(1);
+    opacity: 0.45;
+    box-shadow: none;
+}
+
+/* ---------- Login y register ---------- */
+body.centrado {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background:
+        linear-gradient(115deg, transparent 55%, rgba(255, 85, 0, 0.07) 55%, rgba(255, 85, 0, 0.07) 70%, transparent 70%),
+        radial-gradient(circle at 15% 0%, rgba(255, 85, 0, 0.22), transparent 50%),
+        var(--fondo);
+}
+
+.caja {
+    width: 100%;
+    max-width: 420px;
+    padding: 40px 36px 36px;
+    background: var(--panel);
+    border: 1px solid var(--borde);
+    border-top: 4px solid var(--naranja);
+    border-radius: var(--radio-grande);
+    box-shadow: var(--sombra), 0 0 60px rgba(255, 85, 0, 0.08);
+}
+.caja h1 { padding-left: 0; text-align: center; font-size: 34px; }
+.caja h1::before { display: none; }
+.caja button { width: 100%; }
+.caja p { margin: 22px 0 0; text-align: center; color: var(--texto-suave); }
+
+/* ---------- Layout de 3 columnas ---------- */
+.layout {
+    display: grid;
+    grid-template-columns: 230px 1fr 200px;
+    min-height: 100vh;
+}
+
+.menu {
+    position: sticky;
+    top: 0;
+    align-self: start;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 0;
+    background: var(--panel);
+    overflow-y: auto;
+}
+.menu-izq { border-right: 1px solid var(--borde); }
+.menu-der { border-left: 1px solid var(--borde); }
+
+.menu a {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 24px;
+    font-family: var(--display);
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--texto-suave);
+    border-left: 4px solid transparent;
+    transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+.menu a:hover {
+    color: var(--texto);
+    background: var(--panel-2);
+    border-left-color: var(--borde-fuerte);
+    text-decoration: none;
+}
+
+/* Página actual */
+.menu a.activo {
+    color: var(--texto);
+    background: linear-gradient(90deg, rgba(255, 85, 0, 0.22), rgba(255, 85, 0, 0.02));
+    border-left-color: var(--naranja);
+}
+
+.menu-der a img { opacity: 0.75; transition: opacity 0.15s; }
+.menu-der a:hover img, .menu-der a.activo img { opacity: 1; }
+.menu-der a.salir {
+    margin-top: auto;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    border-top: 1px solid var(--borde);
+}
+.menu-der a.salir:hover { color: var(--rojo); border-left-color: var(--rojo); }
+
+.contenido {
+    padding: 44px 48px;
+    max-width: 1100px;
+    width: 100%;
+}
+
+/* ---------- Tablas ---------- */
+table {
+    width: 100%;
+    margin-bottom: 28px;
+    border-collapse: collapse;
+    background: var(--panel);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio-grande);
+    overflow: hidden;
+}
+th, td {
+    padding: 13px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--borde);
+}
+th {
+    font-family: var(--display);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--texto-suave);
+    background: var(--panel-2);
+    border-bottom: 2px solid var(--naranja);
+}
+td { font-variant-numeric: tabular-nums; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(--panel-2); }
+
+/* Ranking: posición, podio y puntaje */
+table.ranking td:first-child {
+    width: 64px;
+    font-family: var(--display);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--texto-suave);
+    border-left: 3px solid transparent;
+}
+table.ranking td:last-child {
+    font-family: var(--display);
+    font-weight: 700;
+    color: var(--naranja);
+}
+table.ranking tr:nth-child(2) td:first-child { color: var(--oro);   border-left-color: var(--oro); }
+table.ranking tr:nth-child(3) td:first-child { color: var(--plata); border-left-color: var(--plata); }
+table.ranking tr:nth-child(4) td:first-child { color: var(--bronce); border-left-color: var(--bronce); }
+table.ranking tr:nth-child(2) td { background: linear-gradient(90deg, rgba(255, 211, 77, 0.07), transparent 40%); }
+
+/* Resultados (opcionales): <td class="ganada"> / <td class="perdida"> */
+.ganada, .victoria { color: var(--verde); font-weight: 600; }
+.perdida, .derrota { color: var(--rojo); font-weight: 600; }
+
+/* ---------- Filtros ---------- */
+.filtros {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding: 16px 18px;
+    background: var(--panel);
+    border: 1px solid var(--borde);
+    border-left: 4px solid var(--naranja);
+    border-radius: var(--radio-grande);
+}
+.filtros label { margin: 0; }
+.filtros select { width: auto; min-width: 150px; }
+.filtros button { margin-top: 0; padding: 11px 22px; }
+
+/* ---------- Settings ---------- */
+.formulario {
+    max-width: 420px;
+    margin-bottom: 32px;
+    padding: 26px;
+    background: var(--panel);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio-grande);
+}
+.formulario label:first-child { margin-top: 0; }
+
+.mensaje {
+    max-width: 420px;
+    margin-bottom: 16px;
+    padding: 13px 18px;
+    background: var(--naranja-suave);
+    border-left: 4px solid var(--naranja);
+    border-radius: 0 var(--radio) var(--radio) 0;
+}
+.mensaje.ok { background: rgba(62, 207, 110, 0.1); border-left-color: var(--verde); }
+.mensaje.error { background: rgba(255, 77, 77, 0.1); border-left-color: var(--rojo); }
+
+/* ---------- Partida encontrada ---------- */
+.versus {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 36px;
+    margin: 32px 0 44px;
+    padding: 48px 24px;
+    background:
+        linear-gradient(100deg, rgba(255, 85, 0, 0.14) 0%, transparent 38%),
+        linear-gradient(260deg, rgba(255, 85, 0, 0.14) 0%, transparent 38%),
+        var(--panel);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio-grande);
+    overflow: hidden;
+}
+
+.jugador {
+    position: relative;
+    width: 260px;
+    padding: 30px 24px;
+    text-align: center;
+    background: var(--panel-2);
+    border: 1px solid var(--borde-fuerte);
+    border-top: 4px solid var(--naranja);
+    border-radius: var(--radio-grande);
+    box-shadow: var(--sombra);
+}
+.jugador h2 { margin: 0 0 6px; font-size: 26px; }
+.jugador p { margin: 4px 0; color: var(--texto-suave); }
+.jugador .elo {
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid var(--borde);
+    font-family: var(--display);
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--naranja);
+    text-shadow: 0 0 24px rgba(255, 85, 0, 0.45);
+}
+
+.vs {
+    font-family: var(--display);
+    font-size: 56px;
+    font-weight: 700;
+    font-style: italic;
+    color: var(--texto);
+    text-shadow: 0 0 30px rgba(255, 85, 0, 0.6);
+}
+
+.link-sala {
+    max-width: 520px;
+    margin-bottom: 8px;
+    padding: 14px 16px;
+    background: var(--panel);
+    border: 1px dashed var(--borde-fuerte);
+    border-radius: var(--radio);
+    word-break: break-all;
+}
+
+/* Única animación: el duelo aparece una sola vez al cargar */
+@media (prefers-reduced-motion: no-preference) {
+    .versus .jugador:first-child { animation: entra-izq 0.5s ease-out both; }
+    .versus .jugador:last-child  { animation: entra-der 0.5s ease-out both; }
+    .versus .vs { animation: aparece 0.5s 0.3s ease-out both; }
+}
+@keyframes entra-izq { from { opacity: 0; transform: translateX(-40px); } }
+@keyframes entra-der { from { opacity: 0; transform: translateX(40px); } }
+@keyframes aparece   { from { opacity: 0; transform: scale(0.6); } }
+
+/* ---------- Textarea (herramientas) ---------- */
+textarea {
+    width: 100%;
+    padding: 12px 14px;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 14px;
+    color: var(--texto);
+    background: var(--fondo);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+/* ---------- Pantallas chicas ---------- */
+@media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; min-height: 0; }
+    .menu {
+        position: static;
+        height: auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding: 0;
+        border: none;
+        overflow: visible;
+    }
+    .menu-izq { border-bottom: 1px solid var(--borde); }
+    .menu a { padding: 14px 18px; border-left: none; border-bottom: 3px solid transparent; }
+    .menu a:hover { border-left-color: transparent; }
+    .menu a.activo {
+        background: var(--naranja-suave);
+        border-bottom-color: var(--naranja);
+    }
+    .menu-der a.salir { margin-top: 0; margin-left: auto; border-top: none; }
+    .contenido { padding: 28px 16px; }
+    h1 { font-size: 30px; }
+    .versus { flex-direction: column; gap: 14px; padding: 28px 16px; }
+    .jugador { width: 100%; max-width: 320px; }
+    .vs { font-size: 40px; }
+    table { display: block; overflow-x: auto; }
+}
